@@ -11,7 +11,7 @@ server.use(cors()); //middleware that allows cross domain communication from the
 
 // Router Imports
 const payersRouter = require('../routers/payers-router.js');
-// const transactionsRouter = require('../routers/transactions-router.js');
+const transactionsRouter = require('../routers/transactions-router.js');
 
 // Endpoints
 server.get('/', (req, res) => {
@@ -23,6 +23,6 @@ server.get('/', (req, res) => {
 
 // Routes
 server.use('/api/payers', payersRouter);
-// server.use('/api/transactions', transactionsRouter);
+server.use('/api/transactions', transactionsRouter);
 
 module.exports = server;
