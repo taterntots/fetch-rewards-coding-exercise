@@ -15,4 +15,18 @@ router.get('/', (req, res) => {
     });
 });
 
+//*************** GET ALL PAYERS WITH ONLY POINT BALANCE IN A SINGLE OBJECT *****************//
+router.get('/points', (req, res) => {
+  Payers.findAllPayersPointBalance()
+    .then(payers => {
+      res.json(payers);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: 'There was an error getting all payers and their point balance in a single object to display'
+      });
+    });
+});
+
 module.exports = router;
