@@ -43,8 +43,8 @@ function spendPoints(total_points) {
         // If the total points are ever at zero or below, stop looping
         if (points <= 0) {
           break
-          // Otherwise, update total points by removing transaction amount
-        } else {
+          // Otherwise, if a payers point_balance is above 0, update total points by removing transaction amount
+        } else if (transaction.point_balance > 0) {
           points -= transaction.points
           let hasPayer = hash.some(payer => payer['payer'] === transaction.payer)
 
@@ -95,7 +95,7 @@ function spendPoints(total_points) {
 function update(payerId, newPointBalance) {
   return db('payers')
     .where('id', payerId)
-    .update({ point_balance: newPointBalance })
+    .update({ point_balance: newPointBalance < 0 ? 0 : newPointBalance }) // If new balance is below zero, reset balance to zero
 }
 
 module.exports = {
