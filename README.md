@@ -106,8 +106,4 @@ To get the server running locally:
 
 ## Environment Variables
 
-This application does not use any environmental variables, as it is just an exercise that runs locally on your maching.
-
-### Attribution
-
-These contribution guidelines have been adapted from [this good-Contributing.md-template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
+This application does not use any environmental variables, as it is just an exercise that runs locally on your machine.
