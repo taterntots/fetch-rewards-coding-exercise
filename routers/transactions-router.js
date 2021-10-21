@@ -15,4 +15,20 @@ router.get('/', (req, res) => {
     });
 });
 
+//*************** SPEND POINTS, WITH OLDEST POINTS BEING SPENT FIRST BASED ON TRANSACTION TIMESTAMP *****************//
+router.put('/spend-points', (req, res) => {
+  let { points } = req.body
+
+  Transactions.spendPoints(points)
+    .then(spentPoints => {
+      res.json(spentPoints);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: 'There was an error spending points'
+      });
+    });
+});
+
 module.exports = router;
