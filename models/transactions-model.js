@@ -14,6 +14,22 @@ function findAllTransactions() {
     .orderBy('t.timestamp', 'asc')
 }
 
+//FIND TRANSACTION BY ID
+function findTransactionById(transactionId) {
+  return db('transactions as t')
+    .where('t.id', transactionId)
+    .first()
+}
+
+//ADD TRANSACTIONS
+function addTransaction(transaction) {
+  return db('transactions')
+    .insert(transaction, 'id')
+    .then(([id]) => {
+      return findTransactionById(id);
+    });
+}
+
 //SPEND POINTS, WITH OLDEST POINTS BEING SPENT FIRST BASED ON TRANSACTION TIMESTAMP
 function spendPoints(total_points) {
   let points = total_points
@@ -84,5 +100,6 @@ function update(payerId, newPointBalance) {
 
 module.exports = {
   findAllTransactions,
+  addTransaction,
   spendPoints
 };

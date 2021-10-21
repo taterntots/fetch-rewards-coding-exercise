@@ -15,6 +15,23 @@ router.get('/', (req, res) => {
     });
 });
 
+//*************** ADD TRANSACTIONS TO THE DATABASE *****************//
+router.post('/', (req, res) => {
+  let transaction = req.body;
+  transaction.timestamp = new Date().toISOString() // Creates timestamp to current time
+
+  Transactions.addTransaction(transaction)
+    .then(response => {
+      res.status(201).json(response);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: 'There was an error adding this transaction to the database'
+      });
+    });
+});
+
 //*************** SPEND POINTS, WITH OLDEST POINTS BEING SPENT FIRST BASED ON TRANSACTION TIMESTAMP *****************//
 router.put('/spend-points', (req, res) => {
   let { points } = req.body
